@@ -3,7 +3,7 @@ package com.qa.test.commonPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import com.qa.test.pages.BasePage;
+import com.qa.test.common.BasePage;
 import com.qa.test.pages.EventsPage;
 
 public class Navbar extends BasePage {

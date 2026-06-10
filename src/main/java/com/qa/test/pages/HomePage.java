@@ -2,6 +2,8 @@ package com.qa.test.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import com.qa.test.common.BasePage;
+
 public class HomePage extends BasePage {
 
     // Locators spécifiques à la page d'accueil

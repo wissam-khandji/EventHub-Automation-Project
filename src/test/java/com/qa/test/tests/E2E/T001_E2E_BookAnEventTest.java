@@ -9,12 +9,12 @@ import com.qa.test.pages.EventDetailPage;
 import com.qa.test.pages.EventsPage;
 import com.qa.test.pages.HomePage;
 import com.qa.test.pages.LoginPage;
-import com.qa.test.tests.BaseTest;
+import com.qa.test.tests.common.BaseTest;
 import com.qa.test.tests.utils.ConfigReader;
 import io.qameta.allure.Allure;
 
 @Tag("E2E")
-public class BookAnEventTest extends BaseTest{
+public class T001_E2E_BookAnEventTest extends BaseTest{
     private LoginPage loginPage;
 
     @BeforeEach
@@ -85,7 +85,7 @@ public class BookAnEventTest extends BaseTest{
         Allure.step("Step 5: Complete booking field as per test data then click confirm booking button", () -> {
             // Fetching user details required for the checkout/booking form
             String bookingName = ConfigReader.getProperty(dataFile, "booking.name");
-            String bookingEmail = ConfigReader.getProperty(dataFile, "booking.email");
+            String bookingEmail = ConfigReader.getProperty(dataFile, "user.email");
             String bookingPhone = ConfigReader.getProperty(dataFile, "booking.phone");
 
             eventDetailPage[0].completeBookingForm(bookingName, bookingEmail, bookingPhone);

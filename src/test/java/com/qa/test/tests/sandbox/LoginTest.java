@@ -1,4 +1,4 @@
-package com.qa.test.tests;
+package com.qa.test.tests.sandbox;
 
 
 import org.openqa.selenium.WebDriver;
@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import com.qa.test.pages.HomePage;
 import com.qa.test.pages.LoginPage;
+import com.qa.test.tests.common.BaseTest;
 import com.qa.test.tests.utils.ConfigReader;
 
 import org.junit.jupiter.api.Assertions;
@@ -19,12 +20,12 @@ public class LoginTest extends BaseTest {
 
     @BeforeEach
     public void initPage() {
-        // Le driver a déjà été initialisé par BaseTest juste avant !
-        // Récupération de l'URL depuis fichier config
+        // driver initialization is handled in BaseTest, we just need to navigate to the login page and initialize the LoginPage object here
+        // get the login page URL from the config properties file
         String urlApp = ConfigReader.getProperty("config", "url.eventhubLogin");
         driver.get(urlApp);
         
-        // Initialisation de la page de login
+        // initialize the LoginPage object to be used in the test methods
         loginPage = new LoginPage(driver);
     }
 
@@ -35,18 +36,18 @@ public class LoginTest extends BaseTest {
          String expectedErrorMessage = "Invalid email or password";
          String actualErrorMessage = loginPage.getErrorMessageText();
 
-         Assertions.assertEquals(expectedErrorMessage, actualErrorMessage, "Le message d'erreur n'est pas celui attendu");
+         Assertions.assertEquals(expectedErrorMessage, actualErrorMessage, "error message is not correct");
     }
 
     @Test
     public void testLoginWorksCorrectly() {
-        // On utilise des données valides pour ce test
-        HomePage homePage = loginPage.loginSuccessfully("khandji.w@gmail.com", "Test1234!");
-        // Verification de la redirection vers la page d'accueil après login réussi
+        // we are using valid credentials stored in the config properties file for this test case
+        HomePage homePage = loginPage.loginSuccessfully("testwissam@test.com", "Test1234!");
+        // verify that after a successful login, we are redirected to the home page by checking the current URL
         String expectedUrl = ConfigReader.getProperty("config", "url.eventhubHome"); 
         String actualUrl = driver.getCurrentUrl();
 
-        Assertions.assertEquals(expectedUrl, actualUrl, "L'URL de destination n'est pas celle attendue");
+        Assertions.assertEquals(expectedUrl, actualUrl, "The destination URL is not the expected one");
 
     }
 }

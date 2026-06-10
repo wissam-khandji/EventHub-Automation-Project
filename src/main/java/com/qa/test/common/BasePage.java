@@ -1,4 +1,4 @@
-package com.qa.test.pages;
+package com.qa.test.common;
 
 import java.time.Duration;
 import org.openqa.selenium.By;
@@ -13,7 +13,7 @@ public abstract class BasePage {
     protected WebDriver driver;
     protected WebDriverWait wait;
 
-    //Constructeur commun a toute les pages
+    //Common constructor for all page classes that initializes the WebDriver and WebDriverWait
     public BasePage(WebDriver driver) {
         this.driver = driver;
         // On initialise un Explicit Wait par défaut de 10 secondes
@@ -25,29 +25,29 @@ public abstract class BasePage {
         return new Navbar(driver);
     }
 
-    // Méthode globale pour attendre qu'un élément soit visible et le retourner
+    // Common method to wait for an element to be visible and return it
     protected WebElement waitForVisibility(By locator) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
-    // Méthode globale pour attendre qu'un élément soit cliquable
+    // Common method to wait for an element to be clickable
     protected WebElement waitForClickability(By locator) {
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
-    // Encapsulation de l'action de cliquer avec attente préalable
+    // Common method to click an element with a prior wait
     protected void click(By locator) {
         waitForClickability(locator).click();
     }
 
-    // Encapsulation de l'action de saisir du texte avec attente préalable
+    // Common method to write text into an element with a prior wait
     protected void writeText(By locator, String text) {
         WebElement element = waitForVisibility(locator);
         element.clear();
         element.sendKeys(text);
     }
 
-    // Attend que l'URL contienne un texte spécifique (ex: /dashboard ou /home)
+    // Common method to wait for the URL to contain a specific text (e.g., /dashboard or /home)
     protected boolean waitForUrlToContain(String expectedFraction) {
     return wait.until(ExpectedConditions.urlContains(expectedFraction));
 }
