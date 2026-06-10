@@ -8,7 +8,7 @@ public class ConfigReader {
 
     /**
      * Dynamically loads a target properties file and retrieves the value of the specified key.
-     * * @param fileName The name of the properties file (excluding the ".properties" extension).
+     * @param fileName The name of the properties file (excluding the ".properties" extension).
      * @param key      The configuration or test data key to search for.
      * @return The value associated with the key as a String.
      */
