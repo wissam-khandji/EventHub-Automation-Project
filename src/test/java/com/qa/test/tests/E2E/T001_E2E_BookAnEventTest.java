@@ -45,7 +45,7 @@ public class T001_E2E_BookAnEventTest extends BaseTest{
             homePage[0] = loginPage.loginSuccessfully(email, password);
         
             // ASSERTION: Check URL redirection after a successful login workflow
-            verifyEquals(ConfigReader.getProperty("config", "url.eventhubHome"), () -> driver.getCurrentUrl(), "Redirection URL after login is incorrect");
+            verifyEquals(ConfigReader.getProperty("config", "url.eventhubHome"),driver.getCurrentUrl(), "Redirection URL after login is incorrect");
         });
 
         // ---STEP 3: Click on Events---
@@ -53,7 +53,7 @@ public class T001_E2E_BookAnEventTest extends BaseTest{
         Allure.step("Step 3: Click on Events tab", () -> {
             eventsPage[0] = homePage[0].getNavbar().clickOnEventsTab();
 
-            verifyEquals(ConfigReader.getProperty("config", "url.EventsTab"), () ->driver.getCurrentUrl(), "Redirection URL after clicking on Events tab is incorrect");
+            verifyEquals(ConfigReader.getProperty("config", "url.EventsTab"),driver.getCurrentUrl(), "Redirection URL after clicking on Events tab is incorrect");
         }); 
 
         //Step 4: Book an event
@@ -63,7 +63,7 @@ public class T001_E2E_BookAnEventTest extends BaseTest{
             String eventName = ConfigReader.getProperty(dataFile, "event.name");
             eventDetailPage[0] = eventsPage[0].bookEventByName(eventName);
 
-            verifyEquals(eventName, () -> eventDetailPage[0].getTitleEventName(eventName), "Event name is not correct");
+            verifyEquals(eventName,eventDetailPage[0].getTitleEventName(eventName), "Event name is not correct");
             
             // Fetching all expected UI values dynamically from the properties file
             String expectedDate = ConfigReader.getProperty(dataFile, "event.date"); 
@@ -73,11 +73,11 @@ public class T001_E2E_BookAnEventTest extends BaseTest{
 
         // Grouped assertions using JUnit 5 Assertions.assertAll
         Assertions.assertAll("Verify that all event details are displayed correctly", 
-            // 💡 We pass the dynamic properties directly into both the locator method and the assertion
-            () -> verifyEquals(expectedDate, () -> eventDetailPage[0].getEventDetailText(expectedDate), "Date verification"),
-            () -> verifyEquals(expectedTime, () -> eventDetailPage[0].getEventDetailText(expectedTime), "Hour verification"),
-            () -> verifyEquals(expectedVenue, () -> eventDetailPage[0].getEventDetailText(expectedVenue), "Venue verification"),
-            () -> verifyEquals(expectedPrice, () -> eventDetailPage[0].getEventDetailText(expectedPrice), "Ticket price verification")
+            // We pass the dynamic properties directly into both the locator method and the assertion
+            () -> verifyEquals(expectedDate,eventDetailPage[0].getEventDetailText(expectedDate), "Date verification"),
+            () -> verifyEquals(expectedTime,eventDetailPage[0].getEventDetailText(expectedTime), "Hour verification"),
+            () -> verifyEquals(expectedVenue,eventDetailPage[0].getEventDetailText(expectedVenue), "Venue verification"),
+            () -> verifyEquals(expectedPrice,eventDetailPage[0].getEventDetailText(expectedPrice), "Ticket price verification")
         );
         });
 
@@ -90,7 +90,7 @@ public class T001_E2E_BookAnEventTest extends BaseTest{
 
             eventDetailPage[0].completeBookingForm(bookingName, bookingEmail, bookingPhone);
 
-            verifyEquals("Booking Confirmed! 🎉", () -> eventDetailPage[0].getBookingConfirmationMessage(), "Booking confirmation message is not displayed !");
+            verifyEquals("Booking Confirmed! 🎉",eventDetailPage[0].getBookingConfirmationMessage(), "Booking confirmation message is not displayed !");
         });
 }                                                                       
 

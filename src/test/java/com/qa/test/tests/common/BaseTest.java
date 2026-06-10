@@ -29,49 +29,34 @@ public abstract class BaseTest {
         }
     }
 
-    // Custom assertion method with integrated screenshot capture for better Allure reporting
-   public void verifyEquals(String expected, Supplier<String> actualExpression, String message) {
-    String actual = "";
+   // --- CUSTOM ASSERT EQUALS ---
+    public void verifyEquals(String expected, String actual, String message) {
         try {
-            // execute the supplier to get the actual value, this allows us to capture Selenium exceptions if the element is not found
-            actual = actualExpression.get(); 
-
+            // Standard JUnit assertion
             Assertions.assertEquals(expected, actual, message);
-            
-            // Screenshot in success case
+
+            // SUCCESS CASE: Take a screenshot to document the pass
             takeScreenshot(" PASS: " + message + " [Expected: " + expected + "]");
 
         } catch (AssertionError e) {
-            // Screenshot if the element is found but the text is incorrect
+            //FAIL (Wrong text): Take a specific assertion failure screenshot
             takeScreenshot(" FAIL (Assertion): " + message + " [Expected: " + expected + " | Actual: " + actual + "]");
-            throw e;
-        } catch (Exception e) {
-                // Screenshot if Selenium throws an exception (like NoSuchElementException or Timeout)
-            takeScreenshot(" CRASH (Selenium Error): " + message + " - Element not found or Timeout !");
             throw e; 
         }
     }
 
     // --- CUSTOM ASSERT TRUE ---
-    public void verifyTrue(Supplier<Boolean> conditionExpression, String message) {
-        boolean condition = false;
+    public void verifyTrue(boolean condition, String message) {
         try {
-            // execute the supplier to evaluate the condition, this allows us to capture Selenium exceptions if the element is not found
-            condition = conditionExpression.get();
-
-            // Perform the standard JUnit assertion
+            // Standard JUnit assertion
             Assertions.assertTrue(condition, message);
             
-            // Take a screenshot on success
+            // SUCCESS CASE: Take a screenshot to document the pass
             takeScreenshot("PASS: " + message);
 
         } catch (AssertionError e) {
-            // Captured if the method returned 'false' instead of 'true'
+            // FAIL (False condition): Take a specific assertion failure screenshot
             takeScreenshot("FAIL (Assertion): " + message + " [Expected: true | Actual: false]");
-            throw e;
-        } catch (Exception e) {
-            // Captured if Selenium throws an exception (like NoSuchElementException or Timeout)
-            takeScreenshot("CRASH (Selenium Error): " + message + " - Element not found or Timeout !");
             throw e; 
         }
     }
