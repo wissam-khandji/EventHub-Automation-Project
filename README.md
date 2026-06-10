@@ -48,8 +48,23 @@ Make sure you have the following installed locally:
 * **Apache Maven**
 * **Google Chrome** (The framework automatically manages the driver executable via Selenium 4)
 
+### 📊 Viewing the Local Interactive Report
+After the test execution, the compiled interactive HTML report is generated under: `target/allure-report/index.html`.
+
+> **⚠️ Important Local Execution Note**: 
+> Due to modern browser security restrictions (**CORS policies** blocking local `file:///` AJAX requests), opening the `index.html` file directly by double-clicking it will result in an infinite loading screen. 
+> 
+> * **Current Workaround**: To view the full interactive dashboard locally, open the `target/allure-report/` folder inside VS Code and launch it using the **Open with Live Server** extension (which bypasses CORS restrictions by serving it over a local `http://` protocol). 
+> * **Future Enhancement**: I plan to resolve this local standalone restriction in an upcoming configuration update or via a dedicated Docker container wrapper.
+> * **Report Preview**: In the meantime, a static preview of the successfully generated dashboard can be viewed directly below.
+
+#### Allure Dashboard Preview:
+![Allure Report Preview](images/AllureReportScreenshot.png)
+
 ### Running the Tests
 To execute the test suite, navigate to the project root folder in your terminal and run:
 
 ```bash
-mvn clean test
+mvn clean test -Dgroups="E2E"
+
+
