@@ -1,0 +1,12 @@
+{
+    "java.test.config": [
+        {
+            "name": "allure-config",
+            "vmArgs": [
+                "-javaagent:${userHome}/.m2/repository/org/aspectj/aspectjweaver/1.9.20.1/aspectjweaver-1.9.20.1.jar",
+                "-Dallure.results.directory=target/allure-results"
+            ]
+        }
+    ],
+    "java.test.defaultConfig": "allure-config"
+}
